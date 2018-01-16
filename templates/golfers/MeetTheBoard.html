@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+<div class="container" id="board-container" style="width: 40rem;">
+    <div class="container board-header">
+        <p class="text-center"><strong>MGA Officers and Board</strong></p>
+    </div>
+    {% for board_member in board_member_list %}
+        <div class="card Board-Card text-center" >
+            <img src="{% static board_member.board_member_photo %}"  alt="">
+            <div class="card-body">
+                <p class="card-text">{{ board_member.first_name }} {{ board_member.last_name }}</p>
+            </div>
+            <div class="card-footer">
+                {{ board_member.get_board_member_display }}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,9 @@
+.navbar .navbar-brand {
+    font-family: 'Dancing Script', 'cursive';
+    color: gold;
+    font-size: xx-large;
+}
+
+.navbar>.collapse>.navbar-nav>.nav-item>a{
+    color: white;
+}

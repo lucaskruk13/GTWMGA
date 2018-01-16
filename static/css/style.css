@@ -1,0 +1,52 @@
+#index-container{
+    margin-top: 20px;
+}
+
+.card-deck{
+    margin-top: 20px;
+}
+
+.Board-Card{
+    margin-top: 25px;
+}
+
+.board-header{
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.home-card{
+    color: black;
+    margin: 0 auto;
+    float: none;
+    margin-bottom: 10px;
+}
+
+.home-card:link, .home-card:visited{
+    text-decoration: none;
+}
+
+#board-container{
+    margin-bottom: 20px;
+}
+
+#tournament-container{
+    margin-top: 20px;
+}
+
+.card-deck{
+    margin-bottom: 50px;
+}
+
+.results-container{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.detail-jumbotron{
+    margin-top: 20px;
+}
+
+#points-table{
+    margin-top: 20px;
+}

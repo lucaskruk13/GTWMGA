@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+            <div class="jumbotron detail-jumbotron">
+                <div class="container">
+                    <h1 class="display-3 text-center">{{ tournament.name }}</h1>
+                    <p class="lead text-center">{{ tournament.description }}</p>
+                    <hr class="my-5">
+                    <p class="text-center" style="font-size: 40px;">{{ tournament.date }} | {{ tournament.get_course_display }}</p>
+                </div>
+            </div>
+
+            <div class="card-deck">
+                {% if black_tees.1 %}
+                    <a href="{% url 'tournaments:black_tee_results' tournament_id=tournament.id %}" class="home-card">
+                        <div class="card" style="width: 20rem; height: 5rem; background-color: black; color: white">
+                            <h5 class="card-header text-center">Black Tees (Championship)</h5>
+                            <p class="card-text text-center">Results</p>
+                        </div>
+                    </a>
+                {% endif %}
+
+                {% if gold_tees.1 %}
+                    <a href="{% url 'tournaments:gold_tee_results' tournament_id=tournament.id %}" class="home-card">
+                        <div class="card" style="width: 20rem; height: 5rem; background-color: gold;">
+                            <h5 class="card-header text-center">Gold Tees {% if not black_tees %} (Championship) {% endif %}</h5>
+                            <p class="card-text text-center">Results</p>
+                        </div>
+                    </a>
+                {% endif %}
+
+                {% if blue_tees.1 %}
+                    <a href="{% url 'tournaments:blue_tee_results' tournament_id=tournament.id %}" class="home-card">
+                        <div class="card" style="width: 20rem; height: 5rem; background-color: deepskyblue;">
+                            <h5 class="card-header text-center">Blue Tees</h5>
+                            <p class="card-text text-center">Results</p>
+                        </div>
+                    </a>
+                {% endif %}
+
+                {% if white_tees.1 %}
+                    <a href="{% url 'tournaments:white_tee_results' tournament_id=tournament.id %}" class="home-card">
+                        <div class="card" style="width: 20rem; height: 5rem;">
+                            <h5 class="card-header text-center">White Tees</h5>
+                            <p class="card-text text-center">Results</p>
+                        </div>
+                    </a>
+                {% endif %}
+        </div>
+    </div>
+
+{% endblock %}
+

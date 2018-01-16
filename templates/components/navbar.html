@@ -1,0 +1,20 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-static-top">
+    <div class="container">
+          <a class="navbar-brand" href="{% url 'mga_home:index' %}" style="color: gold;">Golf Trails of the Woodlands Member Golf Association</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <span class="mr-auto"></span>
+
+              <a href="{% url 'tournaments:tournaments' %}" class="nav-link text-center">Tournaments<span class="sr-only">(current)</span></a>
+              <a href="{% url 'tournaments:point_standings' %}" class="nav-link text-center">Points<span class="sr-only">(current)</span></a>
+              <a href="{% url 'golfers:MeetTheBoard' %}" class="nav-link text-center">MGA Board<span class="sr-only">(current)</span></a>
+          </div>
+    </div>
+
+</nav>

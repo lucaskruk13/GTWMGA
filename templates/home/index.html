@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    {% load static %}
+    <div class="container" id="index-container">
+        <div class="jumbotron">
+            <h1 class="display-4 text-center">Upcoming Tournament</h1>
+            {% if tournament %}
+
+                <p class=" lead text-center" id="tournament-name">{{ tournament.name }}</p>
+                <p class="text-center">{{ tournament.get_course_display }} - {{ tournament.date }}</p>
+                <hr class="my-4">
+
+                <p class="text_center" id="tournament-description">{{ tournament.description }}</p>
+
+
+            <p class="lead text-center">
+            {% if tournament.sign_up_link %}
+                <a class="btn btn-primary btn-lg" href="{{ tournament.sign_up_link }}" role="button">Sign Up</a>
+            {% endif %}
+            </p>
+            {% endif %}
+        </div>
+
+        <a href="{% url 'golfers:MeetTheBoard' %}" id="MeetTheBoardLink" class="home-card">
+            <div class="card text-center" id="MGA-Board">
+                <img src="{% static 'images/board_images/Board_Group_Photo.jpeg' %}" class="card-img-top" alt="Card Image cap">
+                <div class="card-body">
+                    <p class="card-text">Meet Our Board</p>
+                </div>
+            </div>
+        </a>
+
+        <div class="card-deck">
+            <a href="#" class="home-card">
+                    <div class="card h-100" style="width: 18rem;">
+                        <img class="card-img-top h-50" src="{% static 'images/base_images/The-Golf-Trails-The-Woodlands-Oak-hole-15.jpg' %}" alt="Card image cap">
+                        <div class="card-body">
+                        <p class="card-text">MGA Information</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="{% url 'tournaments:tournaments' %}" class="home-card">
+                <div class="card h-100" style="width: 18rem;">
+                        <img class="card-img-top h-50" src="{% static 'images/base_images/The-Golf-Trails-The-Woodlands-TX-Panther-hole-17.jpg' %}" alt="Card image cap">
+                        <div class="card-body">
+                        <p class="card-text">Tournamet Schedule</p>
+                    </div>
+                </div>
+            </a>
+
+
+            <a href="{% url 'tournaments:point_standings' %}" class="home-card">
+                <div class="card h-100" style="width: 18rem;">
+                        <img class="card-img-top h-50" src="{% static 'images/base_images/The-Golf-Trails-The-Woodlands-TX-panther-18.jpg' %}" alt="Card image cap">
+                        <div class="card-body">
+                        <p class="card-text">Point Standings</p>
+                    </div>
+                </div>
+            </a>
+
+    </div>
+
+{% endblock %}
