@@ -15,7 +15,7 @@
             <tbody>
                 {% for tournament in tournament_list %}
                     <tr>
-                        <td><a href="{% url 'tournaments:detail' tournament.id %}">{{ tournament.date }}</a></td>
+                        <td><a href='{% url "tournaments:detail" tournament.id %}'>{{ tournament.date }}</a></td>
                         <td>{{ tournament.get_course_display }}</td>
                         <td>{{ tournament.name }}</td>
                     </tr>

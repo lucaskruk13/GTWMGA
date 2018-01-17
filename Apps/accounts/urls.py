@@ -7,5 +7,5 @@ app_name = 'home'
 
 urlpatterns = [
 
-    path('', views.SignUp.as_view(), name='signup')
+    #path('', views.SignUp.as_view(), name='signup')
 ]

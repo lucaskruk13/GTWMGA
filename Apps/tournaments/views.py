@@ -15,7 +15,7 @@ goldTeeResults = {}
 def tournaments(request):
     tournament_list = Tournament.objects.order_by('date')
     context = {'tournament_list': tournament_list}
-    return render(request, 'tournaments/tournamets.html', context)
+    return render(request, 'tournaments/tournaments.html', context)
 
 def detail(request, tournament_id):
 
