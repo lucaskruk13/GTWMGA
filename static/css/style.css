@@ -1,3 +1,7 @@
+p, a {
+    font-family: 'Roboto';
+}
+
 #index-container{
     margin-top: 20px;
 }
@@ -49,4 +53,8 @@
 
 #points-table{
     margin-top: 20px;
+}
+
+.cup-qualifier{
+    background-color: yellow;
 }

@@ -3,6 +3,7 @@
 {% block content %}
     <div class="container points-container">
 
+        <h2 class="text-center" style="margin-top: 20px;"> Top 34 and Ties After The Front Tee Fiasco in December Qualify for The Cup in March {{ next_year }} (Highlighted in Yellow)</h2>
         <table class="table table-bordered table-hover" id="points-table">
             <thead>
             <tr>
@@ -14,7 +15,7 @@
             <tbody>
                 {% for golfer_tup in rankings %}
 
-                <tr>
+                <tr {% if golfer_tup.3 <= 34 %} class="cup-qualifier" {% endif %}>
                     <td>{{ golfer_tup.2 }}</td>
                     <td>{{ golfer_tup.1 }}</td>
                     <td>{{ golfer_tup.0 }}</td>

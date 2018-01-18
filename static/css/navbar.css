@@ -1,7 +1,7 @@
 .navbar .navbar-brand {
-    font-family: 'Dancing Script', 'cursive';
+    font-family: 'Roboto', 'Helvetica Neue';
     color: gold;
-    font-size: xx-large;
+    font-size: x-large;
 }
 
 .navbar>.collapse>.navbar-nav>.nav-item>a{

@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 
 import operator
 import math
-
+import datetime
 
 
 from .models import Tournament, Points
@@ -88,13 +88,14 @@ def point_standings(request):
             position = iterator
 
         # add to the dictonary with right position
-        rankings.append((tup[0], tup[1], ordinal(position)))
+        rankings.append((tup[0], tup[1], ordinal(position), position))
 
         # get the current points status
         current_point_status = tup[1]
 
+        date = datetime.datetime.now().year + 1
 
-    return render(request, 'tournaments/point_standings.html', {"rankings":rankings})
+    return render(request, 'tournaments/point_standings.html', {"rankings":rankings, "next_year": date })
 
 def get_results(tournament_id, tee_color):
 

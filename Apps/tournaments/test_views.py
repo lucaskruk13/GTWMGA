@@ -11,7 +11,11 @@ class TournamentViewTestCases(TestCase):
 
         tournament = Tournament.objects.create(name="Test Tournament", description="Test Tournament Description", date='2018-01-13')
 
-        Points.objects.create(golfer=Golfer.objects.get(account_id=user.id), tournament=tournament, extra_points=75)
+        golfer = Golfer.objects.get(account=user.id)
+        golfer.first_name = "Test"
+        golfer.save()
+
+
 
     def test_can_get_to_tournaments(self):
         response = self.client.get('/tournaments/')
@@ -44,7 +48,7 @@ class TournamentViewTestCases(TestCase):
         tdLinkResponse = self.client.get(tdLink)
         self.assertEquals(tdLinkResponse.status_code, 200)
 
-    def test_tournamet_is_setup_and_can_get_to_detail_page(self):
+    def test_tournament_is_setup_and_can_get_to_detail_page(self):
         tournament = Tournament.objects.get(name="Test Tournament")
 
         # make sure it exists
@@ -54,3 +58,73 @@ class TournamentViewTestCases(TestCase):
         response = self.client.get('/tournaments/' + str(tournament.id) + '/')
         self.assertEqual(response.status_code, 200)
 
+    def test_tournament_is_setup_and_flight_details_do_not_exist(self):
+
+        #get the tournament
+        tournament = Tournament.objects.get(name="Test Tournament")
+
+        #get the page
+        response = self.client.get('/tournaments/' + str(tournament.id) + '/')
+        self.assertEquals(response.status_code, 200)
+
+        #verify there should be no page
+        self.assertNotContains(response, "Black Tees")
+        self.assertNotContains(response, "Gold Tees")
+        self.assertNotContains(response, "Blue Tees")
+        self.assertNotContains(response, "White Tees")
+
+    def test_tournament_is_setup_and_flight_details_exist(self):
+        # get the tournament
+        tournament = Tournament.objects.get(name="Test Tournament")
+
+        golfer = Golfer.objects.get(first_name="Test")
+
+
+        # Dont Create a black flight in order to test the championship text
+        Points.objects.create(golfer=golfer, tournament=tournament, flight_color=1)
+        Points.objects.create(golfer=golfer, tournament=tournament, flight_color=2)
+        Points.objects.create(golfer=golfer, tournament=tournament, flight_color=3)
+        Points.objects.create(golfer=golfer, tournament=tournament, flight_color=2, flight_number=2)
+
+        # get the page
+        response = self.client.get('/tournaments/' + str(tournament.id) + '/')
+        self.assertEquals(response.status_code, 200)
+
+        # verify there should be result links
+        self.assertNotContains(response, "Black Tees")
+        self.assertContains(response, "Gold Tees (Championship)")
+        self.assertContains(response, "Blue Tees")
+        self.assertContains(response, "White Tees")
+
+        # refresh and make sure the championship text is gone
+        Points.objects.create(golfer=golfer, tournament=tournament, flight_color=4)
+        response = self.client.get('/tournaments/' + str(tournament.id) + '/')
+        self.assertNotContains(response, "Gold Tees (Championship)")
+        self.assertContains(response, "Gold Tees")
+
+
+        # Test results links
+        whiteResponse = self.client.get("/tournaments/" + str(tournament.id) + "/white_tee_results/")
+        blueResponse = self.client.get("/tournaments/" + str(tournament.id) + "/blue_tee_results/")
+        goldResponse = self.client.get("/tournaments/" + str(tournament.id) + "/gold_tee_results/")
+        blackResponse = self.client.get("/tournaments/" + str(tournament.id) + "/black_tee_results/")
+
+
+        self.assertEquals(blueResponse.status_code, 200)
+        self.assertEquals(goldResponse.status_code, 200)
+        self.assertEquals(blackResponse.status_code, 200)
+        self.assertEquals(whiteResponse.status_code, 200)
+
+
+
+    def test_tournament_is_setup_detail_page_is_setup_with_multiple_tables(self):
+
+        tournament = Tournament.objects.get(name="Test Tournament")
+        golfer = Golfer.objects.get(first_name="Test")
+
+        Points.objects.create(golfer=golfer, tournament=tournament, flight_color=2, flight_number=1)
+        Points.objects.create(golfer=golfer, tournament=tournament, flight_color=2, flight_number=2)
+
+        response = self.client.get("/tournaments/" + str(tournament.id) + "/blue_tee_results/")
+
+        self.assertContains(response, 'table-hover', count=2)
