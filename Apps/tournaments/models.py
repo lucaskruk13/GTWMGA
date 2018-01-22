@@ -43,7 +43,7 @@ class Tournament(models.Model):
         return self.name
 
 
-class Points(models.Model):
+class Point(models.Model):
 
     flight_color = (
         (1, "White"),

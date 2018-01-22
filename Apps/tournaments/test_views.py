@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import Tournament, Points
+from .models import Tournament, Point
 from Apps.golfer.models import Golfer
 from Apps.accounts.models import MyUser
 
@@ -81,10 +81,10 @@ class TournamentViewTestCases(TestCase):
 
 
         # Dont Create a black flight in order to test the championship text
-        Points.objects.create(golfer=golfer, tournament=tournament, flight_color=1)
-        Points.objects.create(golfer=golfer, tournament=tournament, flight_color=2)
-        Points.objects.create(golfer=golfer, tournament=tournament, flight_color=3)
-        Points.objects.create(golfer=golfer, tournament=tournament, flight_color=2, flight_number=2)
+        Point.objects.create(golfer=golfer, tournament=tournament, flight_color=1)
+        Point.objects.create(golfer=golfer, tournament=tournament, flight_color=2)
+        Point.objects.create(golfer=golfer, tournament=tournament, flight_color=3)
+        Point.objects.create(golfer=golfer, tournament=tournament, flight_color=2, flight_number=2)
 
         # get the page
         response = self.client.get('/tournaments/' + str(tournament.id) + '/')
@@ -97,7 +97,7 @@ class TournamentViewTestCases(TestCase):
         self.assertContains(response, "White Tees")
 
         # refresh and make sure the championship text is gone
-        Points.objects.create(golfer=golfer, tournament=tournament, flight_color=4)
+        Point.objects.create(golfer=golfer, tournament=tournament, flight_color=4)
         response = self.client.get('/tournaments/' + str(tournament.id) + '/')
         self.assertNotContains(response, "Gold Tees (Championship)")
         self.assertContains(response, "Gold Tees")
@@ -122,9 +122,38 @@ class TournamentViewTestCases(TestCase):
         tournament = Tournament.objects.get(name="Test Tournament")
         golfer = Golfer.objects.get(first_name="Test")
 
-        Points.objects.create(golfer=golfer, tournament=tournament, flight_color=2, flight_number=1)
-        Points.objects.create(golfer=golfer, tournament=tournament, flight_color=2, flight_number=2)
+        Point.objects.create(golfer=golfer, tournament=tournament, flight_color=2, flight_number=1)
+        Point.objects.create(golfer=golfer, tournament=tournament, flight_color=2, flight_number=2)
 
         response = self.client.get("/tournaments/" + str(tournament.id) + "/blue_tee_results/")
 
         self.assertContains(response, 'table-hover', count=2)
+
+    def test_tournament_points_table(self):
+
+        for x in range(1, 51):
+            email = str(x)+"@"+str(x)+".com"
+            user = MyUser.objects.create(email=email)
+            golfer = Golfer.objects.get(account_id=user.id)
+
+            Point.objects.create(golfer=golfer, tournament=Tournament.objects.get(name="Test Tournament"), extra_points=x)
+
+        response = self.client.get('/tournaments/point_standings/')
+
+        self.assertEquals(response.status_code, 200)
+        self.assertContains(response, 'class="cup-qualifier"', count=34) # Verify there are 34 cup qualifiers
+
+        # No test it adds correctly
+
+        tournament = Tournament.objects.create(name="Test Tournament 2", date="2018-02-03")
+        firstUser = MyUser.objects.get(email="1@1.com")
+        firstGolfer = Golfer.objects.get(account_id=firstUser.id)
+        firstGolfer.first_name = "Golfer"
+        firstGolfer.last_name = "Test"
+        firstGolfer.save()
+
+        Point.objects.create(golfer=firstGolfer, tournament=tournament, extra_points=100)
+
+        response = self.client.get('/tournaments/point_standings/')
+
+        self.assertContains(response, '<td>1st</td>\n                    <td>301</td>\n                    <td>Test, Golfer</td>\n')

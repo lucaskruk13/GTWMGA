@@ -6,7 +6,7 @@ import math
 import datetime
 
 
-from .models import Tournament, Points
+from .models import Tournament, Point
 from Apps.golfer.models import Golfer
 
 goldTeeResults = {}
@@ -59,7 +59,7 @@ def point_standings(request):
     all_golfers = Golfer.objects.all()
 
     for this_golfer in all_golfers:
-        points = Points.objects.all().filter(golfer=this_golfer.account_id, date__year=2018)
+        points = Point.objects.all().filter(golfer=this_golfer.account_id, date__year=2018)
         num_tournaments = points.count()
 
         sum_of_extra_points = points.aggregate(sum_of_points=Sum('extra_points'))
@@ -106,15 +106,15 @@ def get_results(tournament_id, tee_color):
 
     rankings = {}
 
-    flight_details = Points.objects.values('flight_number', 'flight_color').annotate(Count('flight_number')).order_by(
+    flight_details = Point.objects.values('flight_number', 'flight_color').annotate(Count('flight_number')).order_by(
         "flight_color")
 
     # Loop thorugh all the flight detals to determine how many of each flight there are
     for detail in flight_details:
         key_Value = str(detail['flight_color']) + "_" + str(detail['flight_number'])
 
-        this_flight_results = Points.objects.all().filter(tournament=tournament_id, flight_color=int(key_Value[:1]),
-                                                          flight_number=int(key_Value[-1:])).order_by("place_finished","-extra_points","gross_or_net",
+        this_flight_results = Point.objects.all().filter(tournament=tournament_id, flight_color=int(key_Value[:1]),
+                                                         flight_number=int(key_Value[-1:])).order_by("place_finished","-extra_points","gross_or_net",
                                                                                                       "golfer__last_name")
 
         rankings[key_Value] = this_flight_results
