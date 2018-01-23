@@ -12,5 +12,6 @@ urlpatterns = [
     path('<int:tournament_id>/blue_tee_results/', views.blue_tee_results, name='blue_tee_results'),
     path('<int:tournament_id>/black_tee_results/', views.black_tee_results, name='black_tee_results'),
     path('<int:tournament_id>/white_tee_results/', views.white_tee_results, name='white_tee_results'),
-    path('point_standings/', views.point_standings, name='point_standings')
+    path('point_standings/', views.point_standings, name='point_standings'),
+    path('interclub', views.interclub, name='interclub'),
 ]

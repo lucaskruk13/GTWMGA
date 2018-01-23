@@ -6,7 +6,7 @@ import math
 import datetime
 
 
-from .models import Tournament, Point
+from .models import Tournament, Point, Interclub
 from Apps.golfer.models import Golfer
 
 goldTeeResults = {}
@@ -16,6 +16,11 @@ def tournaments(request):
     tournament_list = Tournament.objects.order_by('date')
     context = {'tournament_list': tournament_list}
     return render(request, 'tournaments/tournaments.html', context)
+
+def interclub(request):
+    interclub_list = Interclub.objects.all()
+    context = {'interclub_list': interclub_list}
+    return render(request, 'tournaments/interclub.html', context)
 
 def detail(request, tournament_id):
 
@@ -175,3 +180,4 @@ def generate_html(resultsDict):
         returnHtml += '\t\t</table>\n'
 
     return returnHtml
+

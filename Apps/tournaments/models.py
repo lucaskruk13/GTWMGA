@@ -42,6 +42,26 @@ class Tournament(models.Model):
     def __str__(self):
         return self.name
 
+class Interclub(models.Model):
+    date = models.DateField(blank=False)
+    awayTeam = models.CharField(max_length=50, blank=True, null=True)
+    homeTeam = models.CharField(max_length=50, blank=False, null=False)
+    summerBreak = models.BooleanField(default=False)
+
+    breakEnd = models.DateField(blank=True, null=True)
+
+    class Meta:
+        ordering = ('date',)
+
+    def __str__(self):
+        returnString = ""
+
+        if self.awayTeam:
+            returnString = self.awayTeam + " @ " + self.homeTeam + " | " + self.date.__str__()
+        else:
+            returnString = "@ " + self.homeTeam  + " | " + self.date.__str__()
+
+        return returnString
 
 class Point(models.Model):
 

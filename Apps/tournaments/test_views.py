@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import Tournament, Point
+from .models import Tournament, Point, Interclub
 from Apps.golfer.models import Golfer
 from Apps.accounts.models import MyUser
 
@@ -157,3 +157,8 @@ class TournamentViewTestCases(TestCase):
         response = self.client.get('/tournaments/point_standings/')
 
         self.assertContains(response, '<td>1st</td>\n                    <td>301</td>\n                    <td>Test, Golfer</td>\n')
+
+    def test_interclub(self):
+
+        response = self.client.get('/tournaments/interclub')
+        self.assertEquals(response.status_code, 200)

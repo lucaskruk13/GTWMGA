@@ -58,3 +58,8 @@ p, a {
 .cup-qualifier{
     background-color: yellow;
 }
+
+.container{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

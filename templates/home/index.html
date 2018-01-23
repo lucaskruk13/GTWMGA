@@ -35,7 +35,7 @@
 
         <div class="card-deck">
             <a href="#" class="home-card">
-                    <div class="card h-100" style="width: 18rem;">
+                    <div class="card h-20 text-center" style="width: 18rem;">
                         <img class="card-img-top h-50" src="{% static 'images/base_images/The-Golf-Trails-The-Woodlands-Oak-hole-15.jpg' %}" alt="Card image cap">
                         <div class="card-body">
                         <p class="card-text">MGA Information</p>
@@ -44,7 +44,7 @@
             </a>
 
             <a href="{% url 'tournaments:tournaments' %}" class="home-card">
-                <div class="card h-100" style="width: 18rem;">
+                <div class="card h-20 text-center" style="width: 18rem;">
                         <img class="card-img-top h-50" src="{% static 'images/base_images/The-Golf-Trails-The-Woodlands-TX-Panther-hole-17.jpg' %}" alt="Card image cap">
                         <div class="card-body">
                         <p class="card-text">Tournamet Schedule</p>
@@ -54,10 +54,19 @@
 
 
             <a href="{% url 'tournaments:point_standings' %}" class="home-card">
-                <div class="card h-100" style="width: 18rem;">
-                        <img class="card-img-top h-50" src="{% static 'images/base_images/The-Golf-Trails-The-Woodlands-TX-panther-18.jpg' %}" alt="Card image cap">
+                <div class="card h-20 text-center" style="width: 18rem;">
+                        <img class="card-img-top h-50" src="{% static 'images/base_images/ScoreCard.jpeg' %}" alt="Card image cap">
                         <div class="card-body">
                         <p class="card-text">Point Standings</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="{% url 'tournaments:interclub' %}" class="home-card">
+                <div class="card h-20 text-center" style="width: 18rem;">
+                        <img class="card-img-top" src="{% static 'images/base_images/The-Golf-Trails-The-Woodlands-TX-Panther-hole-17.jpg' %}" alt="Card image cap">
+                        <div class="card-body">
+                        <p class="card-text">Interclub Schedule</p>
                     </div>
                 </div>
             </a>

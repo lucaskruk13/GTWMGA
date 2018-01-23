@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if interclub_list %}
+
+    <div class="container" id="interclub-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Location</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for event in interclub_list %}
+
+                    <tr>
+                        {% if event.breakEnd %}
+                            <td>{{ event.date }} - {{ event.breakEnd }}</td>
+                        {% else %}
+                            <td>{{ event.date }}</td>
+                        {% endif %}
+
+                        {% if event.awayTeam %}
+                            <td>{{ event.awayTeam }} @ {{ event.homeTeam }}</td>
+                        {% elif event.breakEnd %}
+                            <td>Summer Break, Make Up Matches Only</td>
+                        {% else %}
+                            <td>@ {{ event.homeTeam }}</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+    {% endif %}
+
+{% endblock %}
