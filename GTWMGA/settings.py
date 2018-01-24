@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'Apps.home',
     'Apps.accounts',
     'Apps.golfer',
+    'Apps.info',
 ]
 
 MIDDLEWARE = [

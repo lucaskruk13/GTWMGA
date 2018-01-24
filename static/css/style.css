@@ -63,3 +63,7 @@ p, a {
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+.bylaw-table{
+    border: 2px solid black;
+}

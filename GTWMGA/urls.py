@@ -25,5 +25,6 @@ urlpatterns = [
     path('', include('Apps.home.urls')),
     #path('signup/', include('Apps.accounts.urls')),
     path('MeetTheBoard', include('Apps.golfer.urls')),
+    path('info/', include('Apps.info.urls'))
 
 ]

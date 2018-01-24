@@ -1,6 +1,6 @@
 from django.db import models
 import datetime
-from django.utils.translation import gettext as _
+
 
 from Apps.golfer.models import Golfer
 
@@ -47,7 +47,6 @@ class Interclub(models.Model):
     awayTeam = models.CharField(max_length=50, blank=True, null=True)
     homeTeam = models.CharField(max_length=50, blank=False, null=False)
     summerBreak = models.BooleanField(default=False)
-
     breakEnd = models.DateField(blank=True, null=True)
 
     class Meta:
@@ -94,7 +93,6 @@ class Point(models.Model):
     date = models.DateField(default=datetime.datetime.now)
     place_finished = models.IntegerField(null=True, blank=True, default=99, choices=place_finished)
     gross_or_net = models.CharField(max_length=1, blank=False, null=False, choices=grossOrNet, default='N')
-
 
     class Meta:
         ordering = ('golfer',)
