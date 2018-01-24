@@ -8,7 +8,7 @@ gulp.task('default', [
 ]);
 
 gulp.task('less', function () {
-  return gulp.src('./src/ripple.less')
+  return gulp.src('./GTWMGA/ripple.less')
     .pipe(less())
     .pipe(gulp.dest('dist'))
     .pipe(cleanCSS())

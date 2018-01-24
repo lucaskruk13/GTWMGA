@@ -22,12 +22,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '1!oy28gve#hcqpda+2oql-z2kwgs$qz=^$96h9^7z-04y#35k^'
+
+SECRET_KEY = os.environ.get('SECRET_KEY', '1!oy28gve#hcqpda+2oql-z2kwgs$qz=^$96h9^7z-04y#35k^')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://gtwmga.herokuapp.com/']
 
 
 # Application definition
@@ -75,7 +76,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'src.wsgi.application'
+WSGI_APPLICATION = 'GTWMGA.wsgi.application'
 
 
 # Database
@@ -83,15 +84,16 @@ WSGI_APPLICATION = 'src.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': settings_secret.dbname,
-        'USER': settings_secret.username,
-        'PASSWORD': settings_secret.password,
-        'HOST': settings_secret.host,
-        'PORT': '',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+
     }
 }
 
+import dj_database_url
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
+DATABASES['default']['CONN_MAX_AGE'] = 500
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
